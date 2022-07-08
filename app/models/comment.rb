@@ -9,5 +9,4 @@ class Comment < ApplicationRecord
   def counting_comment
     post.update(comments_counter: post.comments.count)
   end
-
 end

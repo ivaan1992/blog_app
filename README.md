@@ -1,25 +1,53 @@
-# README
+![](https://img.shields.io/badge/Microverse-blueviolet)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Blog_app
 
-Things you may want to cover:
+In this project we will be using Ruby on Rails to implement a blog website using full-stack technologies.
 
-* Ruby version
+## Setup
 
-* System dependencies
+Go to your terminal and navigate to where you store project repositories
 
-* Configuration
+Run the command 
 
-* Database creation
+`git clone git@github.com:ivaan1992/blog_app.git`
 
-* Database initialization
+Run
 
-* How to run the test suite
+Navigate to the source folder in your terminal
 
-* Services (job queues, cache servers, search engines, etc.)
+Open in your editor of choice
 
-* Deployment instructions
+run `bundle install`
 
-* ...
-# blog_app
+Testing
+
+run the following after cloning the repository
+
+`rspec`
+
+## Authors
+
+👤 **Ivan Gaona**
+
+- GitHub: [@ivaan1992](https://github.com/ivaan1992)
+- Twitter: [@ivangaona92](https://twitter.com/ivangaona92)
+- LinkedIn: [Ivan92](https://www.linkedin.com/in/ivan-linares-gaona/)
+
+
+:handshake Contributing
+Contributions, issues, and feature requests are welcome!
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc
+
+## 📝 License
+
+This project is [MIT](./MIT.md) licensed.

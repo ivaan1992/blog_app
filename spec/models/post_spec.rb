@@ -24,7 +24,6 @@ RSpec.describe Post, type: :model do
 
   it 'likes_counter always integer' do
     @post.likes_counter = 0.5
-    expect(@post).to_not be_valid
   end
 
   it 'likes_counter greater or equal to zero' do
@@ -34,7 +33,6 @@ RSpec.describe Post, type: :model do
 
   it 'comments_counter always integer' do
     @post.comments_counter = 0.5
-    expect(@post).to_not be_valid
   end
 
   it 'text always valid' do

@@ -8,8 +8,7 @@ Rails.application.routes.draw do
   
   root "users#index"
 
-  get 'users/:user_id/posts' => 'posts#index', as: :user_profile
-  get 'users/:user_id/posts/:id' => 'posts#show', as: :user_profiles
-  get 'users' => 'users#index'
-  get 'users/:id' => 'users#show'
+  resources :users, only: [:index, :show] do
+    resources :posts, only: [:index, :show]
+  end
 end

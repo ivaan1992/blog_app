@@ -1,2 +1,13 @@
-<h1>hey there!</h1>
-<p>Welcome to the posts/index page</p>
+<div class="post_body">
+  <%=render partial: 'partials/post_expanded', locals: { post:@post, user: @user }%>
+  <%= form_with url: "/users/#{@user.id}/posts/#{@post.id}/likes" do |like|%>
+  <%=like.submit "Like Post"%>
+  <div class="post_comments">
+  <div>Comments </div>
+    <%@comments.each do |comment|%>
+      <div><%="#{comment.user.name}: #{comment.text}"%></div>
+    <%end%>
+  </div>
+<% end %>
+<button type='button'><%= link_to "Comment", new_user_post_comment_path(@user, @post) %></button>
+</div>

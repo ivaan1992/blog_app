@@ -1,2 +1,3 @@
-<h1>hey there!</h1>
-<p>Welcome to the users/index page</p>
+<% @users.each do |user|%>
+<%=render partial: 'partials/user_card', locals: { user: user }%>
+<%end%>

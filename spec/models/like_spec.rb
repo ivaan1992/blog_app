@@ -1,20 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe Post, type: :model do
-  before :each do
-    @user = User.new(name: 'John Doe', photo: 'https://example.com/photo.jpg', bio: 'hola', posts_counter: 0)
-    @user.save
-    @post = Post.new(author: @user, title: 'Post title', text: 'body', comments_counter: 0, likes_counter: 0)
-    @post.save
-    @like = Like.new(author: @user, post: @post)
-    @like.save
-  end
+RSpec.describe Like, type: :model do
+  user = User.create(name: 'Jorge', photo: 'www.sweetimage.com', bio: 'Super smart')
+  post = Post.create(user:, title: 'Title', text: 'sweet text!')
 
-  it 'has author' do
-    expect(@post.author).to eq(@user)
-  end
+  subject { Like.new(user:, post:) }
 
-  it 'has post' do
-    expect(@like.post).to eq(@post)
+  before { subject.save }
+
+  it 'should increment post likes_counter' do
+    # subject { Like.new(user: user, post: post) }
+    counter = post.likes_counter
+    subject.save
+    expect(post.likes_counter).to eq(counter + 1)
   end
 end

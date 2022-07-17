@@ -1,67 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  before :each do
-    @user = User.new(name: 'John Doe', photo: 'https://example.com/photo.jpg', bio: 'hola', posts_counter: 0)
-    @post = Post.new(author: @user, title: 'Post title', text: 'body', comments_counter: 0, likes_counter: 0)
-    @post.save
+  user = User.create(name: 'Henry', photo: 'https://www.coolpicturehostingsite.com/', bio: 'Pretty cool guy!')
+
+  subject { Post.new(user:, title: 'Cool title', text: 'Sweet text') }
+
+  before { subject.save }
+
+  it 'Post should be valid' do
+    expect(subject).to be_valid
   end
 
-  it 'title should be present' do
-    @post.title = nil
-    expect(@post).to_not be_valid
+  it 'title should be under 250 characters in length' do
+    expect(subject.title.size).to be < 250
   end
 
-  it 'title length should be less than 250' do
-    @post.title = 'a' * 251
-    expect(@post).to_not be_valid
+  it ':recent_comments should return 5 posts even if there are more posts to gather' do
+    Comment.create(text: 'text for post 1', user:, post: subject)
+    Comment.create(text: 'text for post 2', user:, post: subject)
+    Comment.create(text: 'text for post 3', user:, post: subject)
+    Comment.create(text: 'text for post 4', user:, post: subject)
+    Comment.create(text: 'text for post 5', user:, post: subject)
+    Comment.create(text: 'text for post 6', user:, post: subject)
+    expect(subject.recent_comments.size).to eq(5)
   end
 
-  it 'comments_counter greater or equal to zero' do
-    @post.comments_counter = -1
-    expect(@post).to_not be_valid
-  end
-
-  it 'likes_counter always integer' do
-    @post.likes_counter = 0.5
-  end
-
-  it 'likes_counter greater or equal to zero' do
-    @post.likes_counter = -1
-    expect(@post).to_not be_valid
-  end
-
-  it 'comments_counter always integer' do
-    @post.comments_counter = 0.5
-  end
-
-  it 'text always valid' do
-    @post.text = 'body'
-    expect(@post).to be_valid
-  end
-
-  it 'text always valid' do
-    @post.text = nil
-    expect(@post).to be_valid
-  end
-
-  it 'has author' do
-    expect(@post.author).to eq(@user)
-  end
-
-  it 'five_last_comments' do
-    comment1 = Comment.new(author: @user, text: 'body', post: @post)
-    comment1.save
-    comment2 = Comment.new(author: @user, text: 'body2', post: @post)
-    comment2.save
-    comment3 = Comment.new(author: @user, text: 'body3', post: @post)
-    comment3.save
-    comment4 = Comment.new(author: @user, text: 'body4', post: @post)
-    comment4.save
-    comment5 = Comment.new(author: @user, text: 'body5', post: @post)
-    comment5.save
-    comment6 = Comment.new(author: @user, text: 'body6', post: @post)
-    comment6.save
-    expect(@post.five_last_comments).to eq([comment6, comment5, comment4, comment3, comment2])
+  it 'expect post counter to increment' do
+    counter = user.posts_counter
+    subject.save
+    expect(user.posts_counter).to eq(counter + 1)
   end
 end
